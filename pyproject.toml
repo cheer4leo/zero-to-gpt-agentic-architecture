@@ -10,12 +10,16 @@ authors = [
 ]
 
 dependencies = [
-    "torch>=2.0",
-    "tiktoken>=0.7.0",
     "numpy>=1.24",
 ]
 
 [project.optional-dependencies]
+torch = [
+    "torch>=2.0",
+]
+nlp = [
+    "tiktoken>=0.7.0",
+]
 dev = [
     "pytest>=7.0",
     "ruff>=0.4.0",
@@ -25,7 +29,7 @@ dev = [
 
 [build-system]
 requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]
