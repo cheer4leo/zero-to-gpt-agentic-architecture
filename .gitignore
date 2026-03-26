@@ -1,0 +1,60 @@
+# === COPYRIGHT SAFETY: Learning materials must NEVER enter the repo ===
+# Book PDFs and source materials
+*.pdf
+!docs/*.pdf
+
+# Personal learning notes that may contain book content
+*.pages
+*.docx.bak
+learning-notes/
+private/
+
+# Common places book materials might accidentally live
+book/
+reference/
+source-materials/
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# === IDE / Editor ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# === Jupyter ===
+.ipynb_checkpoints/
+
+# === Testing / Coverage ===
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# === Model weights and data ===
+*.pt
+*.pth
+*.bin
+*.safetensors
+data/raw/
+data/processed/
+weights/
+
+# === OS ===
+Thumbs.db

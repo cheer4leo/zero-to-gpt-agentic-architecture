@@ -1,0 +1,32 @@
+name: Copyright Guard
+on: [pull_request]
+
+jobs:
+  check-restricted-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for restricted file types
+        run: |
+          RESTRICTED=$(find . -name "*.pdf" -not -path "./docs/*" \
+                            -o -name "*.pages" \
+                            -o -path "./book/*" \
+                            -o -path "./reference/*" \
+                            -o -path "./private/*" \
+                            -o -path "./learning-notes/*" \
+                            -o -path "./source-materials/*" | head -20)
+          if [ -n "$RESTRICTED" ]; then
+            echo "::error::Restricted files detected that may contain copyrighted material:"
+            echo "$RESTRICTED"
+            exit 1
+          fi
+      - name: Check for textbook section references
+        run: |
+          REFS=$(grep -ri "section [0-9]\+\.[0-9]\+" src/ agent-docs/ agent-prompts/ \
+                   --include="*.py" --include="*.md" 2>/dev/null \
+                 | grep -iv "vaswani\|attention is all you need\|arxiv" || true)
+          if [ -n "$REFS" ]; then
+            echo "::warning::Possible textbook section references found in public files:"
+            echo "$REFS"
+            echo "Consider replacing with references to published research papers instead."
+          fi
